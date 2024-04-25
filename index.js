@@ -77,11 +77,29 @@ class HashMap{
     }
 
     keys(){
-
+        let keyArr=new Array();
+        let i=0;
+        for(let j=0;j<this.data.length;j++)
+        {
+            if(this.data[j]!=null)
+            {
+                keyArr[i++]=this.data[j][0];
+            }
+        }
+        return keyArr;
     }
 
     values(){
-
+        let keyArr=new Array();
+        let i=0;
+        for(let j=0;j<this.data.length;j++)
+        {
+            if(this.data[j]!=null)
+            {
+                keyArr[i++]=this.data[j][1];
+            }
+        }
+        return keyArr;
     }
 
     entries(){
