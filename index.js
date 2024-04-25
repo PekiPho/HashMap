@@ -31,7 +31,7 @@ class HashMap{
                 return this.data;
             }
             else{
-                h=(h+this.g(i++))%this.data.length;
+                h=(h+this.secondary(i++))%this.data.length;
             }
         }
         this.data[h]= [key,value];
@@ -46,7 +46,7 @@ class HashMap{
             return null;
 
         while(this.data[h][0]!=key){
-            h=(h+this.g(i++))%this.data.length;
+            h=(h+this.secondary(i++))%this.data.length;
             if(i>=this.data.length)
                 return null;
         }
@@ -61,7 +61,7 @@ class HashMap{
             return false;
 
         while(key!=this.data[h][0]){
-            h=(h+this.g(i++))%this.data.length;
+            h=(h+this.secondary(i++))%this.data.length;
             if(i>=this.data.length)
                 return false;
         }
@@ -122,17 +122,20 @@ class HashMap{
     }
 }
 
-let map = new HashMap(64);
+let map = new HashMap(8);
 map.set("Carlos",3);
 map.set("Luke",5);
-map.set("Carla",4);
+map.set("Carld",4);
 
 console.log(map.length()); // 3
 console.log(map.keys()); //[Luke,Carlos,Carla]
+console.log(map.has("Carld"));
+console.log(map.get("Carld"));
+
 // console.log(map.values()); //[5,3,4]
 // console.log(map.has("Carlos")); //true
 // console.log(map.has("Carlo")); //false
-console.log(map.get("Carlos")); // 3
-console.log(map.get("Carlo")); // null
-map.clear(); 
-console.log(map.length()); // 0 
+// console.log(map.get("Carlos")); // 3
+// console.log(map.get("Carlo")); // null
+// map.clear(); 
+// console.log(map.length()); // 0 
