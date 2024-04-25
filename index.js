@@ -4,6 +4,7 @@ class HashMap{
     constructor(size){
         this.data=new Array(size).fill(null);
         this.size=size;
+        const loadFactor=0.75;
     }
 
     hash(key){
@@ -50,7 +51,15 @@ class HashMap{
     }
 
     length(){
-
+        let count = 0;
+        for(let i=0;i<this.data.length;i++)
+        {
+            if(this.data[i]!=null)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
     clear(){
@@ -60,4 +69,15 @@ class HashMap{
         }
     }
 
+    keys(){
+
+    }
+
+    values(){
+
+    }
+
+    entries(){
+
+    }
 }
