@@ -50,7 +50,15 @@ class HashMap{
     }
 
     has(key){
+        let h=hash(key);
+        let i=1;
 
+        while(this.data[h][0]!=key){
+            h=(h+g(i++))%this.data.length;
+            if(i>=this.data.length)
+                return false;
+        }
+        return true;
     }
 
     remove(key){
