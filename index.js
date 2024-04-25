@@ -3,7 +3,6 @@ class HashMap{
 
     constructor(size){
         this.data=new Array(size).fill(null);
-        this.size=size;
         const loadFactor=0.75;
     }
 
@@ -23,7 +22,7 @@ class HashMap{
     }
 
     set(key,value){
-        let h=hash(key)%this.size;
+        let h=hash(key)%this.data.length;
         let i=1;
 
         while(this.data[h]!=null){
@@ -32,14 +31,22 @@ class HashMap{
                 return this.data;
             }
             else{
-                h=(h+g(i++))%this.size;
+                h=(h+g(i++))%this.data.length;
             }
         }
         this.data[h].push([key,value]);
     }
 
     get(key){
+        let h=hash(key)%this.data.length;
+        let i=1;
 
+        while(this.data[h][0]!=key){
+            h=(h+g(i++))%this.data.length;
+            if(i>=this.data.length)
+                return null;
+        }
+        return this.data[h][1];
     }
 
     has(key){
