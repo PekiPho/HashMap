@@ -37,4 +37,27 @@ class HashMap{
         this.data[h].push([key,value]);
     }
 
+    get(key){
+
+    }
+
+    has(key){
+
+    }
+
+    remove(key){
+
+    }
+
+    length(){
+
+    }
+
+    clear(){
+        for(let i=0;i<this.data.length;i++){
+            if(this.data[i]!=null)
+                this.data[i]=null;
+        }
+    }
+
 }
