@@ -24,28 +24,26 @@ class HashMap{
     set(key,value){
         let h= this.hash(key)%this.data.length;
         let i=1;
-        var obj={};
 
         while(this.data[h]!=null){
             if(key == this.data[h][0]){
-                obj[0]=key;
-                obj[1]=value;
-                this.data[h]=obj;
+                this.data[h]=[key,value];
                 return this.data;
             }
             else{
                 h=(h+this.g(i++))%this.data.length;
             }
         }
-        obj[0]=key;
-        obj[1]=value;
-        this.data[h]= obj;
+        this.data[h]= [key,value];
         return this.data;
     }
 
     get(key){
         let h=this.hash(key)%this.data.length;
         let i=1;
+
+        if(this.data[h]==undefined)
+            return null;
 
         while(this.data[h][0]!=key){
             h=(h+this.g(i++))%this.data.length;
@@ -56,10 +54,13 @@ class HashMap{
     }
 
     has(key){
-        var h=this.hash(key);
+        var h=this.hash(key)%this.data.length;
         var i=1;
 
-        while(this.data[h][0]!=key){
+        if(this.data[h]==undefined)
+            return false;
+
+        while(key!=this.data[h][0]){
             h=(h+this.g(i++))%this.data.length;
             if(i>=this.data.length)
                 return false;
@@ -126,5 +127,12 @@ map.set("Carlos",3);
 map.set("Luke",5);
 map.set("Carla",4);
 
-console.log(map.length());
-console.log(map.keys());
+console.log(map.length()); // 3
+console.log(map.keys()); //[Luke,Carlos,Carla]
+// console.log(map.values()); //[5,3,4]
+// console.log(map.has("Carlos")); //true
+// console.log(map.has("Carlo")); //false
+console.log(map.get("Carlos")); // 3
+console.log(map.get("Carlo")); // null
+map.clear(); 
+console.log(map.length()); // 0 
