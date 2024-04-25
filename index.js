@@ -2,7 +2,7 @@
 class HashMap{
 
     constructor(size){
-        this.data=new Array(size).fill(null);
+        this.data=new Array(size);
         const loadFactor=0.75;
     }
 
@@ -22,27 +22,33 @@ class HashMap{
     }
 
     set(key,value){
-        let h=hash(key)%this.data.length;
+        let h= this.hash(key)%this.data.length;
         let i=1;
+        var obj={};
 
         while(this.data[h]!=null){
             if(key == this.data[h][0]){
-                this.data[h].push([key,value]);
+                obj[0]=key;
+                obj[1]=value;
+                this.data[h]=obj;
                 return this.data;
             }
             else{
-                h=(h+g(i++))%this.data.length;
+                h=(h+this.g(i++))%this.data.length;
             }
         }
-        this.data[h].push([key,value]);
+        obj[0]=key;
+        obj[1]=value;
+        this.data[h]= obj;
+        return this.data;
     }
 
     get(key){
-        let h=hash(key)%this.data.length;
+        let h=this.hash(key)%this.data.length;
         let i=1;
 
         while(this.data[h][0]!=key){
-            h=(h+g(i++))%this.data.length;
+            h=(h+this.g(i++))%this.data.length;
             if(i>=this.data.length)
                 return null;
         }
@@ -50,11 +56,11 @@ class HashMap{
     }
 
     has(key){
-        let h=hash(key);
-        let i=1;
+        var h=this.hash(key);
+        var i=1;
 
         while(this.data[h][0]!=key){
-            h=(h+g(i++))%this.data.length;
+            h=(h+this.g(i++))%this.data.length;
             if(i>=this.data.length)
                 return false;
         }
@@ -66,8 +72,8 @@ class HashMap{
     }
 
     length(){
-        let count = 0;
-        for(let i=0;i<this.data.length;i++)
+        var count = 0;
+        for(var i=0;i<this.data.length;i++)
         {
             if(this.data[i]!=null)
             {
@@ -78,16 +84,16 @@ class HashMap{
     }
 
     clear(){
-        for(let i=0;i<this.data.length;i++){
+        for(var i=0;i<this.data.length;i++){
             if(this.data[i]!=null)
                 this.data[i]=null;
         }
     }
 
     keys(){
-        let keyArr=new Array();
-        let i=0;
-        for(let j=0;j<this.data.length;j++)
+        var keyArr=new Array();
+        var i=0;
+        for(var j=0;j<this.data.length;j++)
         {
             if(this.data[j]!=null)
             {
@@ -98,9 +104,9 @@ class HashMap{
     }
 
     values(){
-        let keyArr=new Array();
-        let i=0;
-        for(let j=0;j<this.data.length;j++)
+        var keyArr=new Array();
+        var i=0;
+        for(var j=0;j<this.data.length;j++)
         {
             if(this.data[j]!=null)
             {
@@ -114,3 +120,11 @@ class HashMap{
 
     }
 }
+
+let map = new HashMap(64);
+map.set("Carlos",3);
+map.set("Luke",5);
+map.set("Carla",4);
+
+console.log(map.length());
+console.log(map.keys());
